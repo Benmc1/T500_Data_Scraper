@@ -14,11 +14,27 @@ public class OWDataScraper {
         for (int region = 1; region < 5; region++) {
             for (int season = 1; season < 6; season++) {
                 controller.selectRole(Role.Roles.SUPPORT);
-                scraper.scrape(season,region,Role.Roles.SUPPORT);
+                //scraper.scrape(season,region,Role.Roles.SUPPORT);
+                scraper.collect(season,region);
             }
         }
     }
-
+    public void collect(int season,int region) {
+        M_KB controller = new M_KB();
+        controller.moveToRegion(region);
+        controller.moveToSeason(season);
+        ArrayList<Hero> heroes = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 3; j++) {
+                Color colour = controller.getColour(i, j);
+                Hero temp = new Hero("??",colour,0);
+                if (!heroes.contains(temp)) {
+                    heroes.add(temp);
+                    System.out.println(i+"  "+j + "\n"+temp);
+                }
+            }
+        }
+    }
     public void scrape (int season,int region,Role.Roles r) throws InterruptedException {
         M_KB controller = new M_KB();
         controller.moveToRegion(region);
@@ -26,10 +42,11 @@ public class OWDataScraper {
         Hero[] heroes = new Role().getHeroes(r);
         int page = 0;
         Hero[] prev = new Role().getHeroes(r);
+
         while (page < 50) {
             Thread.sleep(700);
             Hero[] temp = countHeroes(heroes);
-            if(!Arrays.deepEquals(temp, prev)) heroesFreq = Util.addArrays(temp, heroesFreq);
+            if(!Arrays.deepEquals(temp, prev)) heroesFreq = Util.addArrays(heroesFreq,temp);
             page++;
             prev = temp;
         }
@@ -49,7 +66,6 @@ public class OWDataScraper {
 //                    System.out.println((x + (xOffset * j)) + "  " + (y + (yOffset * i)));
 //                    System.out.println(pixel);
 //                }
-               Arrays.stream(heroes);
                heroes[0].freq[j]++;
 
             }
