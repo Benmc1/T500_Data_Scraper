@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.List;
 
 public class Role {
     public enum Roles{
@@ -33,6 +34,7 @@ public class Role {
        heroes[7] = new Hero("Mercy",     new Color(95,102,81),  35);
        heroes[8] = new Hero("Moira",     new Color(124,219,254),36);
        heroes[9] = new Hero("Zenyatta",  new Color(81,79,86),   37);
+
        return heroes;
     }
 
@@ -40,7 +42,19 @@ public class Role {
      return new Hero[0];
     }
     private Hero[] getTanks(){
-        return new Hero[0];
+        Hero[] heroes = new Hero[10];
+        heroes[0] = new Hero("D.Va",       new Color(106,89,90),   17);
+        heroes[1] = new Hero("Doomfist",   new Color(113,90,90),  18);
+        heroes[2] = new Hero("JunkerQ",    new Color(249,190,180),19);
+        heroes[3] = new Hero("Orisa",      new Color(188,121,0), 20);
+        heroes[4] = new Hero("Ramattra",   new Color(233,176,152),21);
+        heroes[5] = new Hero("Reinhart",   new Color(180,127,92), 22);
+        heroes[6] = new Hero("Roadhog",    new Color(124,130,59), 23);
+        heroes[7] = new Hero("Sigma",      new Color(241,204,188),  24);
+        heroes[8] = new Hero("Winston",    new Color(22,17,17),25);
+        heroes[9] = new Hero("Hammond",    new Color(81,79,86),   26);
+        heroes[9] = new Hero("Zarya",      new Color(180,167,167),   27);
+        return heroes;
     }
 
 }

@@ -11,26 +11,28 @@ public class OWDataScraper {
         M_KB controller = new M_KB();
         controller.keyboardListen(GlobalKeyEvent.VK_F3);
         OWDataScraper scraper = new OWDataScraper();
-        for (int region = 1; region < 5; region++) {
-            for (int season = 1; season < 6; season++) {
-                controller.selectRole(Role.Roles.SUPPORT);
-                //scraper.scrape(season,region,Role.Roles.SUPPORT);
-                scraper.collect(season,region);
-            }
-        }
+//        for (int region = 1; region < 5; region++) {
+//            for (int season = 1; season < 6; season++) {
+//                controller.selectRole(Role.Roles.SUPPORT);
+//                scraper.scrape(season,region,Role.Roles.SUPPORT);
+//                scraper.collect(season,region);
+//            }
+//        }
+        scraper.collect(1,1);
     }
-    public void collect(int season,int region) {
+    public void collect(int season,int region) throws InterruptedException {
         M_KB controller = new M_KB();
         controller.moveToRegion(region);
         controller.moveToSeason(season);
         ArrayList<Hero> heroes = new ArrayList<>();
+
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 3; j++) {
                 Color colour = controller.getColour(i, j);
-                Hero temp = new Hero("??",colour,0);
+                Hero temp = new Hero("??",colour,i+j);
                 if (!heroes.contains(temp)) {
                     heroes.add(temp);
-                    System.out.println(i+"  "+j + "\n"+temp);
+                    System.out.println(i+"  "+j + "\n"+colour);
                 }
             }
         }

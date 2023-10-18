@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Util {
@@ -22,26 +23,26 @@ public class Util {
             e.printStackTrace();
         }
     }
-    static public int[][] addArrays(int[][] primary , int[][]secondary){
-        for (int i = 0; i < primary.length; i++) {
-            primary[i][0] += secondary[i][0];
-            primary[i][1] += secondary[i][1];
-            primary[i][2] += secondary[i][2];
+    static public ArrayList<Hero> addArrays(ArrayList<Hero> primary , Hero[] secondary){
+        for(Hero h : secondary){
+            if(!primary.contains(h))primary.add(h);
+            else{
+                int n = primary.indexOf(h);
+                primary.get(n).addFreq(h);
+            }
         }
         return primary;
     }
 
-    static public String stringOutput(int season,int region,int[][] count){
+    static public String stringOutput(int season,int region,ArrayList<Hero> h){
         StringBuilder s = new StringBuilder();
         s.append("Region: "+ Regions[region] + "  ");
         s.append("SEASON: "+season + "  ");
-        for (int i = 0; i < count.length; i++) {
-            s.append(Role.HERONAMES[i] +":  "+ Arrays.toString(count[i]) +"  ");
-        }
-        System.out.println(s);
+        for(Hero hero: h)s.append(hero.toString());
+        return s.toString();
     }
 
-    static public void savetoFile(int s , int r,int[][] count){
+    static public void savetoFile(int s , int r, ArrayList<Hero> heroes){
         String filePath = "output.txt";
         try {
             File file = new File(filePath);
@@ -50,15 +51,12 @@ public class Util {
 
             if (file.exists()) bufferedWriter.newLine();
 
-            bufferedWriter.write(stringOutput(s,r,count));
+            bufferedWriter.write(stringOutput(s,r,heroes));
             bufferedWriter.close();
 
             System.out.println("Data appended to " + filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    static public Color getPixelColor(int x, int y){
-
     }
 }
