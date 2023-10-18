@@ -6,21 +6,13 @@ public class Role {
         DAMAGE,
         Tank,
         SUPPORT,
-        All
     }
-
-    public static final int NUMOFHEROS = 38;
-    static final String[] HERONAMES = {"Ashe", "Bastion", "Cassidy", "Echo", "Genji", "Hanzo", "Junkrat", "Mei", "Pharah", "Reaper", "Sojourn", "Soldier",
-            "Sombra", "Symmetra", "Torbjorn", "Tracer", "Widowmaker", "D.Va", "Doomfist", "JunkerQueen", "Orisa", "Ramattra", "Reinhart", "Roadhog", "Sigma", "Winston",
-            "Hammond", "Zarya", "Ana", "Baptiste", "Brigette", "Illari", "Kiriko", "Lifeweaver", "Lucio", "Mercy", "Moira", "Zenyatta"};
-    static final String[] Regions = {"Na","EU","ASIA"};
 
     public Hero[] getHeroes(Roles r){
         return switch (r) {
             case DAMAGE -> getDamage();
             case SUPPORT -> getSupports();
             case Tank -> getTanks();
-            default -> new Hero[0];
         };
     }
     static private Hero[] getSupports(){
@@ -40,7 +32,27 @@ public class Role {
     }
 
     private Hero[] getDamage(){
-     return new Hero[0];
+        Hero[] heroes = new Hero[17];
+        heroes[0] = new Hero("Ashe",        new Color(169,151,139),   0);
+        heroes[1] = new Hero("Bastion",     new Color(246,254,254),   1);
+        heroes[2] = new Hero("Cassidy",     new Color(140,111,100),   2);
+        heroes[3] = new Hero("Echo",        new Color(130,185,226),  3);
+        heroes[4] = new Hero("Genji",       new Color(178,193,186),   4);
+        heroes[5] = new Hero("Hanzo",       new Color(233,194,150),   5);
+        heroes[6] = new Hero("Junkrat",     new Color(179,119,47),   6);
+        heroes[7] = new Hero("Mei",         new Color(114,67,59),   7);
+        heroes[8] = new Hero("Phara",       new Color(143,96,60),   8);
+        heroes[9] = new Hero("Reaper",      new Color(237,241,243),   9);
+        heroes[10] = new Hero("Sojourn",    new Color(0,0,0),   10);
+        heroes[11] = new Hero("Soldier",    new Color(142,147,154),   11);
+        heroes[12] = new Hero("Sombra",     new Color(178,126,109),   12);
+        heroes[13] = new Hero("Symetra",    new Color(40,27,25),   13);
+        heroes[14] = new Hero("Torbjorn",   new Color(238,182,131),   14);
+        heroes[15] = new Hero("Tracer",     new Color(239,90,11),   15);
+        heroes[16] = new Hero("WidowMaker", new Color(202,199,231),   16);
+
+
+        return heroes;
     }
     private Hero[] getTanks(){
         Hero[] heroes = new Hero[11];
@@ -48,7 +60,7 @@ public class Role {
         heroes[1] = new Hero("Doomfist",   new Color(106,89,90),  18);
         heroes[2] = new Hero("JunkerQ",    new Color(139,108,97),19);
         heroes[3] = new Hero("Orisa",      new Color(188,121,0), 20);
-        heroes[4] = new Hero("Ramattra",   new Color(233,176,152),21);
+        heroes[4] = new Hero("Ramattra",   new Color(64,55,52),21);
         heroes[5] = new Hero("Reinhart",   new Color(152,99,89), 22);
         heroes[6] = new Hero("Roadhog",    new Color(97,109,110), 23);
         heroes[7] = new Hero("Sigma",      new Color(242,199,190),  24);

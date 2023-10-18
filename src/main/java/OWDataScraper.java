@@ -18,7 +18,7 @@ public class OWDataScraper {
 //                scraper.scrape(season,region,Role.Roles.SUPPORT);
 //            }
 //        }
-        scraper.scrape(1,1, Role.Roles.Tank);
+        scraper.scrape(1,1, Role.Roles.DAMAGE);
     }
 
     public void scrape (int season,int region,Role.Roles role) throws InterruptedException {
@@ -26,11 +26,12 @@ public class OWDataScraper {
         controller.moveToRegion(region);
         controller.moveToSeason(season);
         controller.highlightNextBtn();
+
         Hero[] heroes = new Role().getHeroes(role);
-        int page = 47;
         //there might not be 50 pages this stops the last page from being added repeatedly
         BufferedImage prev = null;
         BufferedImage curr = controller.getPageNum();
+        int page = 49;
         while (page < 50 && prev != curr) {
             Thread.sleep(700);
             countHeroes(heroes);
@@ -56,7 +57,7 @@ public class OWDataScraper {
                 Optional<Hero> target = Arrays.stream(heroes).sequential().filter(hero -> hero.getColour().equals(colour)).findFirst();
                 if(target.isEmpty()) {
                     System.out.println( i + "  " +  j);
-                    System.out.println(colour);
+                    System.out.println(colour.getRed()+","+colour.getGreen()+","+colour.getBlue());
                 }else{
                     target.get().freq[j]++;
                 }

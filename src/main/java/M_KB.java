@@ -59,7 +59,7 @@ public class M_KB {
         }
     }
     public void moveToRegion(int region){
-        int xRegion =780 ,yRegion =284,rOffset = 36 ;
+        int xRegion =1212 ,yRegion =284,rOffset = 36 ;
 
         try {
             Robot dog = new Robot();
@@ -74,7 +74,7 @@ public class M_KB {
     }
 
     public void selectRole(Role.Roles role){
-        int x =1212 ,y =284,yOffset = 36 ;
+        int x =780 ,y =284,yOffset = 36 ;
 
         try{
             Robot dog = new Robot();
@@ -111,8 +111,7 @@ public class M_KB {
         try{
             Robot dog = new Robot();
             Rectangle pageNumBox = new Rectangle(930,869,36,24);
-            BufferedImage pageNum = dog.createScreenCapture(pageNumBox);
-            return pageNum;
+            return dog.createScreenCapture(pageNumBox);
         }catch (Exception e){
             e.printStackTrace();
         }
