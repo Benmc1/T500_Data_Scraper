@@ -4,6 +4,7 @@ import lc.kra.system.keyboard.event.GlobalKeyEvent;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.awt.image.BufferedImage;
 
 public class M_KB {
     static public Boolean run = true;
@@ -88,5 +89,17 @@ public class M_KB {
             c = new Color(0);
         }
         return c;
+    }
+    public BufferedImage getPageNum(){
+
+        try{
+            Robot dog = new Robot();
+            Rectangle pageNumBox = new Rectangle(930,869,36,24);
+            BufferedImage pageNum = dog.createScreenCapture(pageNumBox);
+            return pageNum;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -1,10 +1,12 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import lc.kra.system.keyboard.event.GlobalKeyEvent;
 public class OWDataScraper {
-    private  ArrayList<Hero> heroesFreq = new ArrayList<>();
+    private  ArrayList<Hero> heroesFreq;
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -15,45 +17,47 @@ public class OWDataScraper {
 //            for (int season = 1; season < 6; season++) {
 //                controller.selectRole(Role.Roles.SUPPORT);
 //                scraper.scrape(season,region,Role.Roles.SUPPORT);
-//                scraper.collect(season,region);
 //            }
 //        }
-        scraper.collect(1,1);
+        scraper.collect();
     }
-    public void collect(int season,int region) throws InterruptedException {
+    public void collect() {
+        heroesFreq.addAll(List.of(new Role().getHeroes(Role.Roles.All)));
+        System.out.println(heroesFreq.size());
         M_KB controller = new M_KB();
-        controller.moveToRegion(region);
-        controller.moveToSeason(season);
-        ArrayList<Hero> heroes = new ArrayList<>();
+
+        Hero[] heroes = new Role().getHeroes(Role.Roles.Tank);
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 3; j++) {
                 Color colour = controller.getColour(i, j);
                 Hero temp = new Hero("??",colour,i+j);
-                if (!heroes.contains(temp)) {
-                    heroes.add(temp);
-                    System.out.println(i+"  "+j + "\n"+colour);
-                }
+//                if (!heroes.contains(temp)) {
+//                    heroes.add(temp);
+//                    System.out.println(i+"  "+j + "\n"+colour);
+//                }
             }
         }
     }
-    public void scrape (int season,int region,Role.Roles r) throws InterruptedException {
+    public void scrape (int season,int region,Role.Roles role) throws InterruptedException {
         M_KB controller = new M_KB();
         controller.moveToRegion(region);
         controller.moveToSeason(season);
-        Hero[] heroes = new Role().getHeroes(r);
+        Hero[] heroes = new Role().getHeroes(role);
         int page = 0;
-        Hero[] prev = new Role().getHeroes(r);
-
-        while (page < 50) {
+        //there might not be 50 pages this stops the last page from being added repeatedly
+        BufferedImage prev = null;
+        BufferedImage curr = controller.getPageNum();
+        while (page < 50 && prev != curr) {
             Thread.sleep(700);
-            Hero[] temp = countHeroes(heroes);
-            if(!Arrays.deepEquals(temp, prev)) heroesFreq = Util.addArrays(heroesFreq,temp);
+            countHeroes(heroes);
+            prev = curr;
+            curr = controller.getPageNum();
             page++;
-            prev = temp;
+
         }
-        Util.stringOutput(season ,region,heroesFreq);
-        Util.savetoFile(season,region,heroesFreq);
+        Util.stringOutput(season ,region,role,heroes);
+        Util.saveToFile(season ,region,role,heroes);
     }
 
 
@@ -64,12 +68,13 @@ public class OWDataScraper {
             for (int j = 0; j < 3; j++) {
                 Color colour = cont.getColour(i,j);
 
-//                if(!colourMap.containsKey(pixel)) {
-//                    System.out.println((x + (xOffset * j)) + "  " + (y + (yOffset * i)));
-//                    System.out.println(pixel);
-//                }
-               heroes[0].freq[j]++;
-
+                Hero target = Arrays.stream(heroes).sequential().filter(hero -> hero.getColour() == colour).findFirst().orElse(null);
+                if(target == null) {
+                    System.out.println( j + "  " +  i);
+                    System.out.println(colour);
+                }else{
+                    target.freq[j]++;
+                }
             }
         }
         return heroes;

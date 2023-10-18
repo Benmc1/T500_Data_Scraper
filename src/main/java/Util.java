@@ -1,12 +1,12 @@
 import javax.imageio.ImageIO;
-import java.awt.*;
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class Util {
     static private final String[] Regions={"NA","EU","ASIA"};
@@ -34,15 +34,16 @@ public class Util {
         return primary;
     }
 
-    static public String stringOutput(int season,int region,ArrayList<Hero> h){
+    static public String stringOutput(int season, int region, Role.Roles role, Hero[] h){
         StringBuilder s = new StringBuilder();
         s.append("Region: "+ Regions[region] + "  ");
         s.append("SEASON: "+season + "  ");
+        s.append(role + "  ");
         for(Hero hero: h)s.append(hero.toString());
         return s.toString();
     }
 
-    static public void savetoFile(int s , int r, ArrayList<Hero> heroes){
+    static public void saveToFile(int season , int region,Role.Roles role, Hero[] heroes){
         String filePath = "output.txt";
         try {
             File file = new File(filePath);
@@ -51,7 +52,7 @@ public class Util {
 
             if (file.exists()) bufferedWriter.newLine();
 
-            bufferedWriter.write(stringOutput(s,r,heroes));
+            bufferedWriter.write(stringOutput(season,region,role,heroes));
             bufferedWriter.close();
 
             System.out.println("Data appended to " + filePath);
