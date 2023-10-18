@@ -1,5 +1,4 @@
 import javax.imageio.ImageIO;
-
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,6 +18,7 @@ public class Util {
             ImageIO.write(screenCap, "png", outputFile);
             System.out.println("Screenshot saved as " + outputFile.getAbsolutePath());
 
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -26,9 +26,9 @@ public class Util {
 
     static public String stringOutput(int season, int region, Role.Roles role, Hero[] h){
         StringBuilder s = new StringBuilder();
-        s.append("Region: "+ Regions[region] + "  ");
-        s.append("SEASON: "+season + "  ");
-        s.append(role + "  ");
+        s.append("Region: ").append(Regions[region - 1]).append("  ");
+        s.append("SEASON: ").append(season).append("  ");
+        s.append(role).append("  ");
         for(Hero hero: h)s.append(hero.toString());
         return s.toString();
     }

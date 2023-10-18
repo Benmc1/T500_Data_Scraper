@@ -1,7 +1,6 @@
 import lc.kra.system.keyboard.GlobalKeyboardHook;
 import lc.kra.system.keyboard.event.GlobalKeyAdapter;
 import lc.kra.system.keyboard.event.GlobalKeyEvent;
-
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.image.BufferedImage;
@@ -121,7 +120,7 @@ public class M_KB {
     public void highlightNextBtn(){
         try{
             Robot dog = new Robot();
-            dog.mouseMove(1015,880);
+            dog.mouseMove(1030,880);
         }catch (Exception e){
             e.printStackTrace();
         }
