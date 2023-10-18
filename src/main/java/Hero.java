@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.Arrays;
+
 public class Hero {
     private final Color Colour ;
     private final int Id;
@@ -21,5 +23,29 @@ public class Hero {
 
     public int getId() {
         return Id;
+    }
+
+    public void addFreq(Hero h){
+        freq[0] += h.freq[0];
+        freq[1] += h.freq[1];
+        freq[2] += h.freq[2];
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Hero hero = (Hero) o;
+
+        return Id == hero.Id;
+    }
+
+    @Override
+    public String toString() {
+        return "Hero{" +
+                "name='" + name + '\'' +
+                ", freq=" + Arrays.toString(freq) +
+                '}';
     }
 }
