@@ -5,7 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 
 public class Util {
@@ -22,16 +22,6 @@ public class Util {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    static public ArrayList<Hero> addArrays(ArrayList<Hero> primary , Hero[] secondary){
-        for(Hero h : secondary){
-            if(!primary.contains(h))primary.add(h);
-            else{
-                int n = primary.indexOf(h);
-                primary.get(n).addFreq(h);
-            }
-        }
-        return primary;
     }
 
     static public String stringOutput(int season, int region, Role.Roles role, Hero[] h){

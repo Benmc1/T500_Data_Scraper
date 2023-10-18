@@ -59,7 +59,7 @@ public class M_KB {
         }
     }
     public void moveToRegion(int region){
-        int xRegion =1212 ,yRegion =284,rOffset = 36 ;
+        int xRegion =780 ,yRegion =284,rOffset = 36 ;
 
         try {
             Robot dog = new Robot();
@@ -74,9 +74,25 @@ public class M_KB {
     }
 
     public void selectRole(Role.Roles role){
+        int x =1212 ,y =284,yOffset = 36 ;
 
+        try{
+            Robot dog = new Robot();
+            dog.mouseMove(x, y);
+            leftClick();
+            int n = 0;
+            switch (role){
+                case Tank -> n =2;
+                case DAMAGE -> n = 3;
+                case SUPPORT ->  n =4;
+            }
+            dog.mouseMove(x, y + (yOffset * n));
+            leftClick();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
-    public Color getColour(int i ,int j){
+    public Color getColour(int i , int j){
         Color c;
         try{
             Robot dog = new Robot();
@@ -101,5 +117,14 @@ public class M_KB {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void highlightNextBtn(){
+        try{
+            Robot dog = new Robot();
+            dog.mouseMove(1015,880);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

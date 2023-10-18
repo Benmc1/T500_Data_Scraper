@@ -16,12 +16,12 @@ public class Role {
     static final String[] Regions = {"Na","EU","ASIA"};
 
     public Hero[] getHeroes(Roles r){
-        switch (r){
-            case DAMAGE: return getDamage();
-            case SUPPORT: return getSupports();
-            case Tank: return getTanks();
-            default: return new Hero[0];
-        }
+        return switch (r) {
+            case DAMAGE -> getDamage();
+            case SUPPORT -> getSupports();
+            case Tank -> getTanks();
+            default -> new Hero[0];
+        };
     }
     static private Hero[] getSupports(){
        Hero[] heroes = new Hero[10];
@@ -43,18 +43,18 @@ public class Role {
      return new Hero[0];
     }
     private Hero[] getTanks(){
-        Hero[] heroes = new Hero[10];
-        heroes[0] = new Hero("D.Va",       new Color(97,109,110),   17);
-        heroes[1] = new Hero("Doomfist",   new Color(113,90,90),  18);
+        Hero[] heroes = new Hero[11];
+        heroes[0] = new Hero("D.Va",       new Color(22,17,17),   17);
+        heroes[1] = new Hero("Doomfist",   new Color(106,89,90),  18);
         heroes[2] = new Hero("JunkerQ",    new Color(139,108,97),19);
-        heroes[3] = new Hero("Orisa",      new Color(138,153,178), 20);
+        heroes[3] = new Hero("Orisa",      new Color(188,121,0), 20);
         heroes[4] = new Hero("Ramattra",   new Color(233,176,152),21);
-        heroes[5] = new Hero("Reinhart",   new Color(180,127,92), 22);
-        heroes[6] = new Hero("Roadhog",    new Color(124,130,59), 23);
-        heroes[7] = new Hero("Sigma",      new Color(241,204,188),  24);
-        heroes[8] = new Hero("Winston",    new Color(22,17,17),25);
-        heroes[9] = new Hero("Hammond",    new Color(169,175,195),   26);
-        heroes[9] = new Hero("Zarya",      new Color(241,204,188),   27);
+        heroes[5] = new Hero("Reinhart",   new Color(152,99,89), 22);
+        heroes[6] = new Hero("Roadhog",    new Color(97,109,110), 23);
+        heroes[7] = new Hero("Sigma",      new Color(242,199,190),  24);
+        heroes[8] = new Hero("Winston",    new Color(71,79,95),25);
+        heroes[9] = new Hero("Hammond",    new Color(234,213,185),   26);
+        heroes[10] = new Hero("Zarya",      new Color(241,204,188),   27);
         return heroes;
     }
 

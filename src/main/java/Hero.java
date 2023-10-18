@@ -25,12 +25,6 @@ public class Hero {
         return Id;
     }
 
-    public void addFreq(Hero h){
-        freq[0] += h.freq[0];
-        freq[1] += h.freq[1];
-        freq[2] += h.freq[2];
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

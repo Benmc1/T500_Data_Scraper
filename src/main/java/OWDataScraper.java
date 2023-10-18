@@ -1,12 +1,11 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
+
 
 import lc.kra.system.keyboard.event.GlobalKeyEvent;
 public class OWDataScraper {
-    private  ArrayList<Hero> heroesFreq;
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -19,32 +18,16 @@ public class OWDataScraper {
 //                scraper.scrape(season,region,Role.Roles.SUPPORT);
 //            }
 //        }
-        scraper.collect();
+        scraper.scrape(1,1, Role.Roles.Tank);
     }
-    public void collect() {
-        heroesFreq.addAll(List.of(new Role().getHeroes(Role.Roles.All)));
-        System.out.println(heroesFreq.size());
-        M_KB controller = new M_KB();
 
-        Hero[] heroes = new Role().getHeroes(Role.Roles.Tank);
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 3; j++) {
-                Color colour = controller.getColour(i, j);
-                Hero temp = new Hero("??",colour,i+j);
-//                if (!heroes.contains(temp)) {
-//                    heroes.add(temp);
-//                    System.out.println(i+"  "+j + "\n"+colour);
-//                }
-            }
-        }
-    }
     public void scrape (int season,int region,Role.Roles role) throws InterruptedException {
         M_KB controller = new M_KB();
         controller.moveToRegion(region);
         controller.moveToSeason(season);
+        controller.highlightNextBtn();
         Hero[] heroes = new Role().getHeroes(role);
-        int page = 0;
+        int page = 47;
         //there might not be 50 pages this stops the last page from being added repeatedly
         BufferedImage prev = null;
         BufferedImage curr = controller.getPageNum();
@@ -54,30 +37,31 @@ public class OWDataScraper {
             prev = curr;
             curr = controller.getPageNum();
             page++;
-
+            controller.leftClick();
         }
-        Util.stringOutput(season ,region,role,heroes);
+
+        System.out.println(Util.stringOutput(season ,region,role,heroes));
         Util.saveToFile(season ,region,role,heroes);
     }
 
 
-    static public Hero[] countHeroes(Hero[] heroes)  {
+    static public void countHeroes(Hero[] heroes) {
         M_KB cont = new M_KB();
+
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 3; j++) {
-                Color colour = cont.getColour(i,j);
+                Color colour = cont.getColour(j,i);
 
-                Hero target = Arrays.stream(heroes).sequential().filter(hero -> hero.getColour() == colour).findFirst().orElse(null);
-                if(target == null) {
-                    System.out.println( j + "  " +  i);
+                Optional<Hero> target = Arrays.stream(heroes).sequential().filter(hero -> hero.getColour().equals(colour)).findFirst();
+                if(target.isEmpty()) {
+                    System.out.println( i + "  " +  j);
                     System.out.println(colour);
                 }else{
-                    target.freq[j]++;
+                    target.get().freq[j]++;
                 }
             }
         }
-        return heroes;
     }
 
 }
